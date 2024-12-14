@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Εγγραφή
+{% endblock title %}
+
+{% block content%}
+<div class="container login-container">
+	<div class="row">
+	    <div class="col-md-6 login-form-1">
+	        <h3>Sign Up Form</h3>
+
+			<form method="POST">
+
+				{{ form.hidden_tag() }}
+
+			  <div class="mb-3">
+			    {{ form.username.label(class="form-label") }}
+			    {{ form.username(class="form-control") }}
+			    <div id="usernameHelp" class="form-text">Παρακαλώ δώστε όνομα χρήστη.</div>
+					{% if form.username.errors %}
+				    <ul class=errors>
+				    {% for error in form.username.errors %}
+				      <li class="alert text-danger">{{ error }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+			  </div>
+			  <div class="mb-3">
+			    {{ form.email.label(class="form-label") }}
+			    {{ form.email(class="form-control") }}
+			    <div id="emailHelp" class="form-text">Παρακαλώ δώστε το email σας.</div>
+					{% if form.email.errors %}
+				    <ul class=errors>
+				    {% for error in form.email.errors %}
+				      <li class="alert text-danger">{{ error }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+			  </div>
+			  <div class="mb-3">
+			    {{ form.password.label(class="form-label") }}
+			    {{ form.password(class="form-control", type="password") }}
+			    <div id="passwordHelp" class="form-text">Παρακαλώ δώστε το password σας.</div>
+					{% if form.password.errors %}
+				    <ul class=errors>
+				    {% for error in form.password.errors %}
+				      <li class="alert text-danger">{{ error }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+			  </div>
+
+			  <div class="mb-3">
+			    {{ form.password2.label(class="form-label") }}
+			    {{ form.password2(class="form-control", type="password") }}
+			    <div id="password2Help" class="form-text">Παρακαλώ δώστε ξανά το password σας για επικύρωση.</div>
+					{% if form.password2.errors %}
+				    <ul class=errors>
+				    {% for error in form.password2.errors %}
+				      <li class="alert text-danger">{{ error }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+			  </div>
+
+			  <div class="mb-3">
+			  	{{ form.submit(class="btn btn-primary") }}
+			  </div>
+			</form>
+
+
+
+
+
+
+	    </div>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block content%}
+<div class="container login-container">
+  <div class="row">
+    <div class="col-md-6 login-form-1">
+        <h3>{{ page_title }}</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control", required=False) }}
+          <div id="crop_nameHelp" class="form-text">Παρακαλώ εισάγετε το όνομα της καλλιέργειας.</div>
+          {% if form.name.errors %}
+            <ul class=errors>
+            {% for error in form.name.errors %}
+              <li class="alert text-danger">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.location.label(class="form-label") }}
+            {{ form.location(class="form-control", required=False) }}
+            <div id="crop_locationHelp" class="form-text">Παρακαλώ εισάγετε την τοποθεσία που βρίσκεται η καλλιέργεια.</div>
+            {% if form.location.errors %}
+              <ul class=errors>
+              {% for error in form.location.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.location_longitude.label(class="form-label") }}
+            {{ form.location_longitude(class="form-control", required=False) }}
+            <div id="crop_location_longitudeHelp" class="form-text">Παρακαλώ εισάγετε τo Longtitude που βρίσκεται η καλλιέργεια.</div>
+            {% if form.location_longitude.errors %}
+              <ul class=errors>
+              {% for error in form.location_longitude.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+ 
+          <div class="mb-3">
+            {{ form.location_latitude.label(class="form-label") }}
+            {{ form.location_latitude(class="form-control", required=False) }}
+            <div id="crop_location_latitudeHelp" class="form-text">Παρακαλώ εισάγετε το Latitude που βρίσκεται η καλλιέργεια.</div>
+            {% if form.location_latitude.errors %}
+              <ul class=errors>
+              {% for error in form.location_latitude.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          
+          <div class="mb-3">
+            {{ form.prefecture.label(class="form-label") }}
+            {{ form.prefecture(class="form-control", required=False) }}
+            <div id="prefectureHelp" class="form-text">Παρακαλώ εισάγετε το Νομό που βρίσκεται η καλλιέργεια.</div>
+            {% if form.prefecture.errors %}
+              <ul class=errors>
+              {% for error in form.prefecture.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.area.label(class="form-label") }}
+            {{ form.area(class="form-control", required=False) }}
+            <div id="areaHelp" class="form-text">Παρακαλώ εισάγετε την περιοχή που βρίσκεται η καλλιέργεια.</div>
+            {% if form.area.errors %}
+              <ul class=errors>
+              {% for error in form.area.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.crop_area.label(class="form-label") }}
+            {{ form.crop_area(class="form-control", required=False) }}
+            <div id="crop_areaHelp" class="form-text">Παρακαλώ εισάγετε την έκτασης καλλιέργειας.</div>
+            {% if form.crop_area.errors %}
+              <ul class=errors>
+              {% for error in form.crop_area.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.crop_type.label(class="form-label") }}
+            {{ form.crop_type(class="form-control", required=False) }}
+            <div id="crop_typeHelp" class="form-text">Παρακαλώ εισάγετε το είδος της καλλιέργειας.</div>
+            {% if form.crop_type.errors %}
+              <ul class=errors>
+              {% for error in form.crop_type.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.soil_type.label(class="form-label") }}
+            {{ form.soil_type(class="form-control", required=False) }}
+            <div id="soil_typeHelp" class="form-text">αρακαλώ εισάγετε τον τύπο εδάφους της καλλιέργειας.</div>
+            {% if form.soil_type.errors %}
+              <ul class=errors>
+              {% for error in form.soil_type.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+        <div class="mb-3">
+          {{ form.image.label(class="form-label") }}
+          {{ form.image(class="form-control") }}
+          <div id="movie_imageHelp" class="form-text">Παρακαλώ δώστε μία εικόνα για την καλλιέργεια.</div>
+              {% if form.image.errors %}
+              <ul class=errors>
+              {% for error in form.image.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+        </div>
+
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

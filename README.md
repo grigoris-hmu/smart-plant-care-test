@@ -4,7 +4,7 @@ Smart Plant Care repository for testing
 ## Run mini How To
 
 ### Clone repository
-clone https://github.com/grigoris-hmu/smart-plant-care-test.git<br/>
+git clone https://github.com/grigoris-hmu/smart-plant-care-test.git<br/>
 cd smart-plant-care-test/
 
 ### Initialize Python virtual enviroment

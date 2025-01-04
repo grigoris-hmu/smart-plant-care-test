@@ -1,36 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Smart Plant Care</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link mlink" aria-current="page" href="/">Αρχική</a>
-          </li>
-          {% if current_user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link mlink" href="{{ url_for('new_crop') }}">Νέα Καλλιέργεια</a>
-            </li>
-          {% endif %}       
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
 
           {% if current_user.is_authenticated %}
+
+          <a class="navbar-brand" href="{{ url_for('crop.crops') }}">{{_('Crops')}}</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link mlink" aria-current="page" href="{{ url_for('crop.my_crops') }}">{{_('My crops')}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mlink" href="{{ url_for('crop.new_crop') }}">{{_('New Crop')}}</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="rounded-circle navbar-profile-image" alt="{{ current_user.username }}" src="{{ url_for('static', filename='images/profiles_images/'+current_user.profile_image) }}" data-holder-rendered="true" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ current_user.username }}">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('account') }}">{{ current_user.username }}</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('logout_page') }}">Έξοδος</a></li>
+                
+                <li><a class="dropdown-item" href="{{ url_for('user.set_language', language='en') }}">EN</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('user.set_language', language='el') }}">EL</a></li>
+
+                <li><a class="dropdown-item" href="{{ url_for('user.account') }}">{{ current_user.username }}</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('user.logout_page') }}">{{_('Logout')}}</a></li>
               </ul>
             </li>
+            <ul class="nav navbar-nav navbar-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ul>
+
           {% else %}
-            <li class="p-2 bd-highlight"><a class="litems" href="/signup"><span class="glyphicon glyphicon-log-in"></span> Εγγραφή</a></li>
-            <li class="p-2 bd-highlight"><a class="litems" href="/login"><span class="glyphicon glyphicon-log-in"></span> Είσοδος</a></li>
-          {% endif %}
+
+            <ul class="nav navbar-nav navbar-left">&nbsp;</ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li class="p-2 bd-highlight"><a class="litems" href="{{ url_for('user.signup') }}"><span class="glyphicon glyphicon-user"></span>{{_('Signup')}}</a></li>
+            <li class="p-2 bd-highlight"><a class="litems" href="/login"><span class="glyphicon glyphicon-log-in"></span>{{_('Login')}}</a></li>
+            <li class="p-2 bd-highlight"><a class="litems" href="{{ url_for('user.set_language', language='en') }}">EN</a></li>
+            <li class="p-2 bd-highlight"><a class="litems" href="{{ url_for('user.set_language', language='el') }}">EL</a></li>
+            
+            {% endif %}
 
 
         </ul>

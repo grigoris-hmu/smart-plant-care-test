@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Είσοδος
+	{{_('Login')}}
 {% endblock title %}
 
 {% block content%}
@@ -16,7 +16,7 @@
 			  <div class="mb-3">
 			    {{ form.email.label(class="form-label") }}
 			    {{ form.email(class="form-control") }}
-			    <div id="emailHelp" class="form-text">Παρακαλώ δώστε το email σας.</div>
+			    <div id="emailHelp" class="form-text">{{_('Please enter your email.')}}</div>
 					{% if form.email.errors %}
 				    <ul class=errors>
 				    {% for error in form.email.errors %}
@@ -29,7 +29,7 @@
 			  <div class="mb-3">
 			    {{ form.password.label(class="form-label") }}
 			    {{ form.password(type="password", class="form-control") }}
-			    <div id="passwordHelp" class="form-text">Παρακαλώ δώστε το password σας.</div>
+			    <div id="passwordHelp" class="form-text">{{_('Please enter your password.')}}</div>
 					{% if form.password.errors %}
 				    <ul class=errors>
 				    {% for error in form.password.errors %}
@@ -53,7 +53,4 @@
 	    </div>
 	</div>
 </div>
-
-
-
 {% endblock content %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{_('Crops of the')}} {{ author.username }}
+{% endblock title %}
+
+{% block content %}
+
+    <h2 class="aba_header">{{_('Crops by user ')}} {{ author.username }} 
+    <img class="rounded-circle profile-image" alt="{{ author.username }}" src="{{ url_for('static', filename='images/profiles_images/'+author.profile_image) }}" data-holder-rendered="true" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ author.username }}"></h2>
+
+    <hr>
+
+    <!-- Τα παρακάτω δύο κουμπιά θα πρέπει να ταξινομούν τη λίστα ανά βαθμολογία ή έτους πρώτης προβολής αντίστοιχα -->
+
+    <div class="align-buttons">
+      <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('crop.crops_by_author', author_id=author.id, ordering_by='rating') }}">{{_('Sorting by rating')}}</a> &nbsp;&nbsp;&nbsp;
+      <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('crop.crops_by_author', author_id=author.id, ordering_by='release_year') }}">{{_('Sorting by year of projection')}}</a>
+    </div>
+    <hr>
+
+
+    <hr>
+
+    {% if crops %}
+        <!-- Εδώ πρέπει να μπεί ο κώδικας που εμφανίζει τη λίστα με τις ταινίες του συγκεκριμένου χρήστη -->
+
+        <!-- Αρχικά θα είναι η εικόνα, από κάτω ο τίτλος και δίπλα από τον τίτλο το έτος πρώτης προβολής και το rating -->
+        <!-- Στην εικόνα καθορίστε το "height=480px" χωρίς να βάλετε width ώστε να μην παραμορφώνεται -->
+        <!-- κάτω από τον τίτλο θα είναι η πλοκή/υπόθεση της ταινίας κομμένη στους 255 χαρακτήρες -->
+        <!-- τέλος, κάτω από την πλοκή θα είναι ο χρήστης που εισήγαγε την ταινία με το εικονίδιό του -->
+        <!-- Πατώντας στον τίτλο της ταινίας θα μας πηγαίνει στη σελίδα όπου μπορούμε να δούμε τα πλήρη στοιχεία της -->
+        
+        <!-- Η λίστα των ταινιών θα πρέπει από default να είναι ταξινομημένες ανά φθίνουσα ημερομηνία εισαγωγής τους -->
+
+        {% for crop in crops.items %}
+
+        <div class="row my-3 p-3 bg-body rounded shadow-sm">
+          <div class="col col-md-12">
+            {% if crop.image and crop.image != 'default_crop_image.png' %}
+              <img src="{{ url_for('static', filename='images/crops_images/'+crop.image) }}" alt="" class="img-responsive a_image" height="480px">
+            {% endif %}
+          </div>
+          <div class="col col-md-12">
+            <div class="main-crop-title">
+              <a class="crop_title" href="{{ url_for('crop.showCrop', crop_id=crop.id) }}">{{ crop.title | safe }} ({{ crop.release_year }}) [{{ crop.rating / 10 }}]</a>
+            </div>
+            <small class="crop_date">[{{ crop.date_created.strftime('%d-%m-%Y') }}]</small>
+            <p class="main-crop-partial-text">
+              {{ crop.plot | truncate(255) | safe }}
+            </p>
+            <p class="">Από 
+              <span>
+                <a class="owner-name" href="{{ url_for('crop.crops_by_author', author_id=crop.author.id) }}"> {{ crop.author.username }}
+                  <img class="rounded-circle profile-image" alt="{{ crop.author.username }}" src="{{ url_for('static', filename='images/profiles_images/'+crop.author.profile_image) }}" data-holder-rendered="true" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ crop.author.username }}">
+                </a>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <hr>
+      
+
+      {% endfor %}
+
+
+      <div>
+        <!-- Εδώ θα πρέπει να μπεί ο κώδικας για το pagination της σελίδας (παρομοίως με την αρχική σελίδα) -->
+
+        {% for page_number in crops.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+        {% if page_number %}
+
+          {% if ordering_by %}
+
+              {% if crops.page == page_number %}
+                  <a class="btn btn-primary" href="{{ url_for('crop.crops_by_author', author_id=author.id, page=page_number, ordering_by=ordering_by) }}">{{ page_number }}</a>
+              {% else %}
+                  <a class="btn btn-outline-primary" href="{{ url_for('crop.crops_by_author', author_id=author.id, page=page_number, ordering_by=ordering_by) }}">{{ page_number }}</a>
+              {% endif %}
+
+          {% else %}
+
+              {% if crops.page == page_number %}
+                  <a class="btn btn-primary" href="{{ url_for('crop.crops_by_author', author_id=author.id, page=page_number) }}">{{ page_number }}</a>
+              {% else %}
+                  <a class="btn btn-outline-primary" href="{{ url_for('crop.crops_by_author', author_id=author.id, page=page_number) }}">{{ page_number }}</a>
+              {% endif %}
+          
+          {% endif %}
+
+        {% else %}
+            <span>...</span>
+        {% endif %}
+      {% endfor %}
+
+      </div>
+
+    {% else %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">{{_('No crop found')}}</div>
+    {% endif %}
+
+{% endblock %}

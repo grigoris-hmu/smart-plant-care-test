@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block content%}
+<div class="container login-container">
+  <div class="row">
+    <div class="col-md-6 login-form-1">
+        <h3>{{ page_title }}</h3>
+
+        <!-- Εδώ μπαίνει ο κώδικας της φόρμας εισαγωγής νέας ταινίας με όλα τα απαραίτητα πεδία -->
+        <!-- προσοχή στη δήλωση της φόρμας καθώς θα στέλνει και αρχεία (crop image) εκτός από απλά δεδομένα -->
+        <!-- Επίσης θα πρέπει να μπεί βοηθητικό κείμενο στο πεδίο βαθμολογίας και έτους πρώτης προβολής (παρομοίως με τα υπόλοιπα πεδία) που -->
+        <!-- θα ενημερώνει τους χρήστες ότι επιτρέπονται ακέραιοι αριθμοί από το 1 έως το 100 για το rating και από το 1888 έως το current year για το έτος πρώτης προβολής -->
+
+        <form method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          {{ form.title.label(class="form-label") }}
+          {{ form.title(class="form-control", required=False) }}
+          <div id="crop_titleHelp" class="form-text">{{_('Please enter the title of the crop.')}}</div>
+          {% if form.title.errors %}
+            <ul class=errors>
+            {% for error in form.title.errors %}
+              <li class="alert text-danger">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.plot.label(class="form-label") }}
+          {{ form.plot(class="form-control", rows="5", required=False) }}
+          <div id="crop_plotHelp" class="form-text">{{_("Please type the text of the crop's plot.")}}</div>
+          {% if form.plot.errors %}
+            <ul class=errors>
+            {% for error in form.plot.errors %}
+              <li class="alert text-danger">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.release_year.label(class="form-label") }}
+          {{ form.release_year(class="form-control", rows="5", required=False) }}
+          <div id="crop_release_yearHelp" class="form-text">{{_('Please type the year of the first projection of the crop.')}}</div>
+          {% if form.release_year.errors %}
+            <ul class=errors>
+            {% for error in form.release_year.errors %}
+              <li class="alert text-danger">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.rating.label(class="form-label") }}
+          {{ form.rating(class="form-control", rows="5", required=False) }}
+          <div id="crop_ratingHelp" class="form-text">{{_('Please enter the rating of the crop (from 1 to 100)')}}</div>
+          {% if form.rating.errors %}
+            <ul class=errors>
+            {% for error in form.rating.errors %}
+              <li class="alert text-danger">{{ error }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.image.label(class="form-label") }}
+          {{ form.image(class="form-control") }}
+          <div id="crop_imageHelp" class="form-text">{{_('Please provide a picture of the crop.')}}</div>
+              {% if form.image.errors %}
+              <ul class=errors>
+              {% for error in form.image.errors %}
+                <li class="alert text-danger">{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+        </div>
+
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

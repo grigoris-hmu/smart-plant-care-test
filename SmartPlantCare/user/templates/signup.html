@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Εγγραφή
+	{{_('Signup')}}
 {% endblock title %}
 
 {% block content%}
@@ -17,7 +17,7 @@
 			  <div class="mb-3">
 			    {{ form.username.label(class="form-label") }}
 			    {{ form.username(class="form-control") }}
-			    <div id="usernameHelp" class="form-text">Παρακαλώ δώστε όνομα χρήστη.</div>
+			    <div id="usernameHelp" class="form-text">{{_('Please enter your username.')}}</div>
 					{% if form.username.errors %}
 				    <ul class=errors>
 				    {% for error in form.username.errors %}
@@ -29,7 +29,7 @@
 			  <div class="mb-3">
 			    {{ form.email.label(class="form-label") }}
 			    {{ form.email(class="form-control") }}
-			    <div id="emailHelp" class="form-text">Παρακαλώ δώστε το email σας.</div>
+			    <div id="emailHelp" class="form-text">{{_('Please enter your email.')}}</div>
 					{% if form.email.errors %}
 				    <ul class=errors>
 				    {% for error in form.email.errors %}
@@ -41,7 +41,7 @@
 			  <div class="mb-3">
 			    {{ form.password.label(class="form-label") }}
 			    {{ form.password(class="form-control", type="password") }}
-			    <div id="passwordHelp" class="form-text">Παρακαλώ δώστε το password σας.</div>
+			    <div id="passwordHelp" class="form-text">{{_('Please enter your password.')}}</div>
 					{% if form.password.errors %}
 				    <ul class=errors>
 				    {% for error in form.password.errors %}
@@ -54,7 +54,7 @@
 			  <div class="mb-3">
 			    {{ form.password2.label(class="form-label") }}
 			    {{ form.password2(class="form-control", type="password") }}
-			    <div id="password2Help" class="form-text">Παρακαλώ δώστε ξανά το password σας για επικύρωση.</div>
+			    <div id="password2Help" class="form-text">{{_('Please enter your password again for validation.')}}</div>
 					{% if form.password2.errors %}
 				    <ul class=errors>
 				    {% for error in form.password2.errors %}
@@ -69,15 +69,7 @@
 			  </div>
 			</form>
 
-
-
-
-
-
 	    </div>
 	</div>
 </div>
-
-
-
 {% endblock %}

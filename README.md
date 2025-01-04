@@ -1,5 +1,5 @@
 # smart-plant-care-test
-Smart Plant Care repository for testing
+SmartPlantCare repository for testing
 
 ## Run mini How To
 

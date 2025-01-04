@@ -1,41 +1,39 @@
-from flask import Flask
-
+from config import Config
+from flask import Flask, session, request
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+from flask_babel import Babel, _
 from flask_bcrypt import Bcrypt
 
-from flask_login import LoginManager
-
-import os
-import psycopg2
+# set up babel
+def get_locale():
+    return session.get('lang', request.accept_languages.best_match(
+            app.config['LANGUAGES']) or app.config['LANGUAGES'][0])
 
 app = Flask(__name__)
+app.config.from_object(Config)
+bcrypt = Bcrypt(app)
+csrf = CSRFProtect()
+babel = Babel()
 
-
-### Configuration για τα Secret Key, WTF CSRF Secret Key, SQLAlchemy Database URL, 
-## Το όνομα του αρχείου της βάσης δεδομένων θα πρέπει να είναι 'flask_movies_database.db'
-#app.config["SECRET_KEY"] = ''
-app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
-#app.config['WTF_CSRF_SECRET_KEY'] = ''
-app.config['WTF_CSRF_SECRET_KEY'] = os.environ['WTF_CSRF_SECRET_KEY']
-
-#app.config["SQLALCHEMY_DATABASE_URI"] = ''
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['SQLALCHEMY_DATABASE_URI']
-
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-
-### Αρχικοποίηση της Βάσης, και άλλων εργαλείων ###
 
 db = SQLAlchemy(app)
-
-bcrypt = Bcrypt(app)
-
+#migrate = Migrate(app, db)
+csrf.init_app(app)
+babel.init_app(app, locale_selector=get_locale)
 login_manager = LoginManager(app)
+login_manager.login_view = 'user.login_page'
+login_manager.login_message_category = 'warning'
+login_manager.login_message = _('Please login to be able to view this page.')
 
-login_manager.login_view = "login_page"
-login_manager.login_message_category = "warning"
-login_manager.login_message = "Παρακαλούμε κάντε login για να μπορέσετε να δείτε αυτή τη σελίδα."
+# blueprint for auth routes
+from .user import user as user_bp
+app.register_blueprint(user_bp)
 
+# blueprint for parts of app
+from .crop import crop as crop_bp
+app.register_blueprint(crop_bp)
 
-from SmartPlantCare import routes, models
+#from SmartPlantCare import routes, models
+from SmartPlantCare import routes

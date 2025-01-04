@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Error 415: Unsupported Media Type
+    {{_('Error 415: Unsupported Media Type')}}
 {% endblock title %}
 
 {% block content %}
 
 <div class="error_message">
-  Error 415:  Ο τύπος εικόνας που δώσατε δεν υποστηρίζεται από τον server μας!
+  {{_('ERROR 415! The image type you provided is not supported by our server!')}}
 </div>
 
 <div class="error_image_container">

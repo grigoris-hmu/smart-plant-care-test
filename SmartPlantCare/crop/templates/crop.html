@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ crop.title }}
+{% endblock title %}
+
+
+{% block content %}
+
+
+  <main role="main" class="container">
+
+    {% if crop %}
+      <div class="row my-3 p-3 bg-body rounded shadow-sm">
+    		<div class="col col-md-12">
+          {% if crop.image and crop.image != 'default_crop_image.png' %}
+            <img src="{{ url_for('static', filename='images/crops_images/'+crop.image) }}" alt="{{ crop.title }}" title="{{ crop.title }}" class="img-responsive mx-auto d-block a_image">
+          {% endif %}
+    		</div>
+    		<div class="col col-md-12">
+          
+    			<p class="main-crop-title">
+            {{ crop.title }} ({{ crop.release_year }}) [{{ crop.rating / 10 }}]
+          </p>
+          <small class="crop_date">[{{ crop.date_created.strftime('%d-%m-%Y')}}]</small>
+          <div>
+
+            <!-- Εδώ θα πρέπει να γίνεται έλεγχος αν ο χρήστης που βλέπει αυτή τη σελίδα της ταινίας -->
+            <!-- έχει το δικαίωμα να διαγράψει ή να αλλάξει τα στοιχεία της ταινίας αυτής και να εμφανίζει  -->
+            <!-- ή όχι τα αντίστοιχα κουμπιά αλλαγής/διαγραφής. Το κουμπί διαγραφής θα πρέπει να καλεί -->
+            <!-- το Modal στην κάτω μεριά του κώδικα. -->
+            {% if crop.author == current_user %}
+              <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('crop.edit_crop', crop_id=crop.id) }}">{{_('Edit')}}</a>
+              <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">{{_('Delete')}}</button>
+            {% endif %}
+          </div>
+
+
+          <div class="main-crop-full-text">
+            {{ crop.plot | safe }}
+          </div>
+
+    			<p class="">By 
+            <span>
+              <a class="owner-name" href="{{ url_for('crop.crops_by_author', author_id=crop.author.id) }}">
+                {{ crop.author.username }}
+                <img class="rounded-circle navbar-profile-image" alt="{{ current_user.username }}" src="{{ url_for('static', filename='images/profiles_images/'+crop.author.profile_image) }}" data-holder-rendered="true" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ crop.author.username }}">
+              </a>
+            </span>
+          </p>
+          
+    		</div>
+    	</div>
+    {% else %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">{{_('No crop found')}}</div>
+    {% endif %}
+
+
+
+  </main>
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">{{_('Delete crop')}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{_('Are you sure you want to delete this crop?')}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          <!-- Εδώ πρέπει να μπεί η φόρμα που περιέχει το κουμπί διαγραφής της ταινίας -->
+          <!-- και οδηγεί στο route διαγραφής -->
+          <form action="{{ url_for('crop.delete_crop', crop_id=crop.id) }}" method="POST">
+            {{ form.hidden_tag() }}
+            <input type="submit" class="btn btn-danger" value="{{_('Delete crop')}}">
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

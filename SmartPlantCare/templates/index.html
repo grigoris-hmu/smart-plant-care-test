@@ -1,77 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-    
+    {{_('Home Page')}}
 {% endblock title %}
 
 {% block content %}
 
-    <h2 class="aba_header">Καλλιέργειες</h2>
+    <h2 class="aba_header">{{_('Welcome')}}</h2>
     <hr>
-
-    <div class="align-buttons"><a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('root', ordering_by='name') }}">Ταξινόμηση βάσει Ονόματος</a>
-      &nbsp;&nbsp;&nbsp; <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('root', ordering_by='location') }}">Ταξινόμηση βάσει Τοποθεσίας</a></div>
-    <hr>
-
-    {% if crops %}
-
-        {% for crop in crops.items %}
-
-          <div class="row my-3 p-3 bg-body rounded shadow-sm">
-            <div class="col col-md-12">
-              {% if crop.image and crop.image != 'default_crop_image.png' %}
-                <img src="{{ url_for('static', filename='images/crops_images/'+crop.image) }}" alt="" class="img-responsive a_image" height="480px">
-              {% endif %}
-            </div>
-            <div class="col col-md-12">
-              <div class="main-crop-title">
-                <a class="crop_title" href="{{ url_for('crop', crop_id=crop.id) }}">{{ crop.name | safe }} ({{ crop.location }}) [{{ crop.crop_area }}]</a>
-              </div>
-              <small class="crop_area">[{{ crop.crop_area }}]</small>
-              <p class="main-crop-partial-text">
-                {{ crop.location | truncate(255) | safe }}
-              </p>
-
-            </div>
-          </div>
-
-          <hr>
-        
-
-        {% endfor %}
-
-      <div>
-        {% for page_number in crops.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-
-          {% if page_number %}
-
-            {% if ordering_by %}
-
-                {% if crops.page == page_number %}
-                    <a class="btn btn-primary" href="{{ url_for('root', page=page_number, ordering_by=ordering_by) }}">{{ page_number }}</a>
-                {% else %}
-                    <a class="btn btn-outline-primary" href="{{ url_for('root', page=page_number, ordering_by=ordering_by) }}">{{ page_number }}</a>
-                {% endif %}
-
-            {% else %}
-
-                {% if crops.page == page_number %}
-                    <a class="btn btn-primary" href="{{ url_for('root', page=page_number) }}">{{ page_number }}</a>
-                {% else %}
-                    <a class="btn btn-outline-primary" href="{{ url_for('root', page=page_number) }}">{{ page_number }}</a>
-                {% endif %}
-            
-            {% endif %}
-
-          {% else %}
-              <span>...</span>
-          {% endif %}
-        {% endfor %}
-
-      </div>
-
-    {% else %}
-      <div class="alert alert-info alert-dismissible fade show" role="alert">Δε βρέθηκε καμμία καλλιέργεια</div>
-    {% endif %}
 
 {% endblock %}

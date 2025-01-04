@@ -13,7 +13,7 @@ body {
 	color:  black;
 }
 
-.crop_area,.crop_area:hover{
+.crop_date,.crop_date:hover{
 	font-size: 1em;
 	color:  black;
 }
@@ -27,15 +27,15 @@ body {
 	color: rgba(0, 0, 0, 0.4);
 }
 
-.author-name:link{
+.owner-name:link{
 	color: gray;
 }
 
-.author-name:visited{
+.owner-name:visited{
 	color: #696969;
 }
 
-.author-name:hover{
+.owner-name:hover{
 	color: #D3D3D3;
 }
 
@@ -44,14 +44,14 @@ body {
 	color:  black;
 }
 
-.main-crop-category:hover,.main-crop-title:hover,.author-name{
+.main-crop-category:hover,.main-crop-title:hover,.owner-name{
 	text-decoration: underline;
 	color:  black;
 }
 
 footer{
 	color: #fff;
-	background-color: #003300;
+	background-color: #343a40;
 }
 
 .litems,.mlink{

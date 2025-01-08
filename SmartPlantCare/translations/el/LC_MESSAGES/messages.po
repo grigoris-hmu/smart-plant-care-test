@@ -216,7 +216,7 @@ msgstr "ERROR 500! Εσωτερικό Σφάλμα Εξυπηρετητή!"
 
 #: SmartPlantCare/templates/index.html:9
 msgid "Welcome"
-msgstr "καλώς ήλθατε"
+msgstr "Καλώς ήλθατε"
 
 #: SmartPlantCare/templates/navbar.html:6
 msgid "Crops"
@@ -224,7 +224,7 @@ msgstr "Καλλιέργειες"
 
 #: SmartPlantCare/templates/navbar.html:13
 msgid "My crops"
-msgstr "Οι καλλιέργειες μου"
+msgstr "Οι καλλιέργειές μου"
 
 #: SmartPlantCare/templates/navbar.html:16
 msgid "New Crop"
